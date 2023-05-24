@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Cennik{% endblock %}
+
+{% block content %}
+<style>
+  .header{
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .table-striped{
+    margin-top: 40px;
+    font-size: 19px;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+  }
+
+  .table-striped td:nth-child(1){
+    width: 75%;
+  }
+
+</style>
+
+
+<div class="container" style="padding-top: 100px;">
+  <h1 class="header">Cennik</h1>
+  {% for x in ['damskie', 'męskie', 'dodatkowe'] %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          {% if x == 'dodatkowe' %}
+            <th>USŁUGI DODATKOWE</th>
+          {% else %}
+            <th>STRZYŻENIE {{ x.upper() }}</th>
+          {% endif %}
+          <th>Cena</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for price in price_list %}
+          {% if price.type == x %}
+            <tr>
+              <td>{{ price.name }}</td>
+              <td>{{ price.price }} zł</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block navbar %}
+
+<style>
+    .navbar {
+        border-radius: 0px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+    }
+
+    .nav.navbar-nav li a,
+    .navbar-brand {
+      font-size: 20px;
+      float: left;
+      margin-right: 50px;
+      color: white !important;
+    }
+
+    .nav.navbar-nav li a:hover,
+    .navbar-brand:hover {
+      color: rgb(179, 179, 179) !important;
+    }
+    
+</style>
+
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% if current_page == 'home' %}
+                <a class="navbar-brand" href="/" style="font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px;">Home</a>
+            {% else %}
+                <a class="navbar-brand" href="/">Home</a>
+            {% endif %}
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% if current_page == 'zespol' %}
+                    <li><a href="/zespol" style="font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px;">Zespół</a></li>
+                {% else %}
+                    <li><a href="/zespol">Zespół</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav">
+                {% if current_page == 'cennik' %}
+                    <li><a href="/cennik" style="font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px;">Cennik</a></li>
+                {% else %}
+                    <li><a href="/cennik">Cennik</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav">
+                {% if current_page == 'opinie' %}
+                    <li><a href="/opinie" style="font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px;">Opinie</a></li>
+                {% else %}
+                    <li><a href="/opinie">Opinie</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    overflow-x: hidden;
+  }
+  
+  .name{
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .desc{
+    max-width: 1000px;
+    width: 90%;
+    font-size: 19px;
+    padding: 20px;
+    background-color: #282424;
+    box-shadow: 10px 10px 0px #fbecd4;
+    border-radius: 3px;
+    color: white;
+    font-weight: 600;
+    margin: 20px auto;
+  }
+
+  .desc2{
+    font-size: 19px;
+    padding: 20px;
+    font-weight: 600;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #282424;
+    color: white;
+  }
+
+  .address {
+    text-align: left;
+  }
+
+  .phone {
+    text-align: right;
+  }
+
+  .pictures {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .custom-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    margin: 0 20px;
+    border-radius: 50%;
+    box-shadow: 10px 10px 0px #fbecd4;
+  }
+
+  @media (max-width: 1600px) {
+    .custom-image {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .custom-image {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .custom-image {
+      width: 100px;
+      height: 100px;
+    }
+  }
+</style>
+<div>
+  <div class="container" style="padding-top: 100px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-content: center;">
+      <h1 class="name">Salon fryzjerski "Włos"</h1>
+      <div class="pictures">
+        <img src="{{ url_for('static', filename='images/pic4.jpg') }}" class="custom-image">
+        <img src="{{ url_for('static', filename='images/pic5.png') }}" class="custom-image">
+        <img src="{{ url_for('static', filename='images/pic1.jpg') }}" class="custom-image">
+        <img src="{{ url_for('static', filename='images/pic2.jpg') }}" class="custom-image">
+        <img src="{{ url_for('static', filename='images/pic3.jpg') }}" class="custom-image">
+      </div>
+      <p class="desc">Jesteśmy renomowanym salonem fryzjerskim mieszczącym się w Olsztynie, działającym od 1990 roku. 
+        Oferujemy szeroki zakres usług fryzjerskich, takich jak strzyżenie, koloryzacja, stylizacja i 
+        przedłużanie włosów. Nasz zespół doświadczonych fryzjerów jest zawsze gotowy, aby zapewnić Ci 
+        spersonalizowane usługi i pomóc osiągnąć pożądany efekt. Dążymy do tego, abyś czuł się doskonale 
+        i pewnie po wizycie w naszym salonie. Wykorzystujemy najnowocześniejsze narzędzia i produkty, 
+        aby zapewnić wysoką jakość usług. Skontaktuj się z nami już dziś, aby umówić wizytę i pozwól 
+        nam odmienić Twoje włosy!
+      </p>
+      <div class="desc2">
+        <span class="address">ul. Olsztyńska 99/9</span>
+        <span class="phone">tel. 123 456 789</span>
+      </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block title %}Opinie{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<style>
+  .header {
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  table.dataTable {
+    font-size: 19px;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+    margin-bottom: 10px !important;
+    margin-top: 40px !important;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+      border-radius: 2px;
+  }
+
+  table.dataTable td:nth-child(1),
+  table.dataTable td:nth-child(2),
+  table.dataTable td:nth-child(3) {
+    width: 150px;
+    max-width: 200px;
+    word-break: break-all;
+  }
+  
+  .form-control {
+    border-radius: 2px;
+    font-size: 19px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .form-group label {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .form-group .form-control#name {
+    width: 200px;
+    height: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-group .form-control#rating {
+    width: 60px;
+    height: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-group .form-control#opinion {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    background-color: #282424;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 19px;
+    align-self: center;
+    margin-top: 10px;
+  }
+
+  .btn:hover{
+    background-color: #424040;
+    color: white;
+  }
+
+  #flash-messages {
+    position: fixed;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 300px;
+  }
+</style>
+
+<div class="container" style="padding-top: 100px;">
+  <h1 class="header">Opinie</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div id="flash-messages" class="container mt-4">
+        {% for message in messages %}
+          <div class="alert alert-info" style="font-size: 16px;">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  <form class="form-group" method="POST">
+    {{ form.csrf_token }}
+    <div class="row">
+      <div class="col-md-3">
+        {{ wtf.form_field(form.name, class="form-control") }}
+      </div>
+      <div class="col-md-3">
+        {{ wtf.form_field(form.rating, class="form-control") }}
+      </div>
+    </div>
+    {{ wtf.form_field(form.opinion, class="form-control") }}
+    {{ wtf.form_field(form.submit, class="btn") }}
+  </form>
+  <table id="opinion-table" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Imię</th>
+        <th>Ocena</th>
+        <th>Opinia</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for opinion in opinion_list %}
+      <tr>
+        <td>{{ opinion.date.strftime('%d.%m.%y') }}</td>
+        <td>{{ opinion.name }}</td>
+        <td>{{ opinion.rating }}</td>
+        <td>{{ opinion.opinion }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> -->
+<script src="{{ url_for('static', filename='jquery-3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.dataTables.min.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='jquery.dataTables.min.css') }}">
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+      $('#opinion-table').DataTable().destroy();
+      
+      $('#opinion-table').DataTable({
+          "pageLength": 5,
+          "searching": false,
+          "lengthChange": false,
+          "order": [[0, 'desc']],
+          "language": {
+            "paginate": {
+            "previous": "<",
+            "next": ">",
+            },
+            "info": "Wyświetlanie _START_ do _END_ z _TOTAL_ opinii",
+          }
+      });
+    });
+
+    setTimeout(function() {
+        var flashMessages = document.getElementById('flash-messages');
+        if (flashMessages) {
+            flashMessages.style.display = 'none';
+        }
+    }, 3000);
+</script>
+{% endblock %}
+
+{% endblock %}
