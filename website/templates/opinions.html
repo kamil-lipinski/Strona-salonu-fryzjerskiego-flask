@@ -31,6 +31,11 @@
     max-width: 200px;
     word-break: break-all;
   }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+      border-radius: 2px;
+      margin-bottom: 20px;
+  }
   
   .form-control {
     font-family: 'Verdana';
@@ -142,9 +147,7 @@
   </table>
 </div>
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> -->
+<!--skrypty i stylowanie tabeli z paginacją-->
 <script src="{{ url_for('static', filename='jquery-3.6.0.min.js') }}"></script>
 <script src="{{ url_for('static', filename='jquery.dataTables.min.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='jquery.dataTables.min.css') }}">
@@ -169,6 +172,7 @@
       });
     });
 
+    <!--ustawienie czasu trwania alertu flash na 3 sekundy-->
     setTimeout(function() {
         var flashMessages = document.getElementById('flash-messages');
         if (flashMessages) {

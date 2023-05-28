@@ -11,30 +11,29 @@ def home():
 
 @views.route('/zespol', methods=['GET'])
 def team():
-    hairdresser_list = Hairdresser.query.all()
-    for hairdresser in hairdresser_list: # konwersja LargeBinary na obraz
+    hairdresser_list = Hairdresser.query.all()  # zapytanie do bazy pobierające wszystkie obiekty klasy Hairdresser
+    for hairdresser in hairdresser_list:  # dekodowanie obrazów zapisanych jako LargeBinary na utf8
         if hairdresser.picture:
             hairdresser.picture = base64.b64encode(hairdresser.picture).decode('utf-8')
     return render_template('team.html', current_page='zespol', hairdresser_list=hairdresser_list)
 
 @views.route('/cennik', methods=['GET'])
 def prices():
-    price_list = Price.query.all()
+    price_list = Price.query.all()  # zapytanie do bazy pobierające wszystkie obiekty klasy Price
     return render_template('prices.html', current_page='cennik', price_list=price_list)
 
 @views.route('/opinie', methods=['GET', 'POST'])
 def opinions():
     form = OpinionForm()
-    opinion_list = []
 
     if form.validate_on_submit():
-        session['name'] = form.name.data
+        session['name'] = form.name.data  # przechowywanie w session storage aby rozwiązać problem odświeżania
         session['rating'] = form.rating.data
         session['opinion'] = form.opinion.data
 
         new_opinion = Opinion(name=session['name'], rating=session['rating'], opinion=session['opinion'])
         db.session.add(new_opinion)
-        db.session.commit()
+        db.session.commit()  # stworzenie nowego obiektu klasy Opinion i dodanie do bazy
 
         session.pop('name', None)
         session.pop('rating', None)
@@ -42,9 +41,9 @@ def opinions():
 
         flash('Dodano nową opinię!')
 
-        return redirect(url_for('views.opinions')) # przechowywane w session storage 
-                                                   # aby rozwiązać problem odśwież
+        return redirect(url_for('views.opinions'))
 
-    opinion_list = Opinion.query.order_by(Opinion.id.desc()).all()
+    opinion_list = Opinion.query.order_by(Opinion.id.desc()).all()   # zapytanie do bazy pobierające wszystkie obiekty
+                                                                     # klasy Opinion posortowane po id malejąco
 
     return render_template('opinions.html', current_page='opinie', form=form, opinion_list=opinion_list)
