@@ -43,7 +43,7 @@ def opinions():
 
         return redirect(url_for('views.opinions'))
 
-    opinion_list = Opinion.query.order_by(Opinion.id.desc()).all()   # zapytanie do bazy pobierające wszystkie obiekty
-                                                                     # klasy Opinion posortowane po id malejąco
+    opinion_list = Opinion.query.order_by(Opinion.date.desc()).all()   # zapytanie do bazy pobierające wszystkie obiekty
+                                                                       # klasy Opinion posortowane po dacie malejąco
 
     return render_template('opinions.html', current_page='opinie', form=form, opinion_list=opinion_list)
